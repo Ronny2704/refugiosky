@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugio Sky - Adopta</title>
+    <style>
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --texto-secundario: #8D6E63;
+            --tarjeta: #ffffff;
+            --acento: #A28663;
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --texto-secundario: #D7CCC8;
+            --tarjeta: #3D2B27;
+            --acento: #D7CCC8;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding-top: 100px;
+            padding-bottom: 60px;
+            transition: all 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Canvas de Confeti */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Navbar Original */
+        .navbar {
+            background-color: var(--tarjeta);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo { 
+            position: absolute; 
+            left: 50px; 
+            font-family: 'Georgia', serif; 
+            font-weight: bold; 
+            font-style: italic; 
+            font-size: 1.5rem; 
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--texto-principal);
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .btn-toggle-nav {
+            position: absolute;
+            right: 50px;
+            background: none;
+            border: 1.5px solid var(--texto-principal);
+            border-radius: 50%;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            color: var(--texto-principal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Contenedor del Formulario Estilizado */
+        .form-container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: var(--tarjeta);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--texto-secundario);
+            border-radius: 8px;
+            background: var(--fondo);
+            color: var(--texto-principal);
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--texto-principal);
+            color: var(--fondo);
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { transform: scale(1.02); background-color: var(--acento); }
+            /* ... Todos tus estilos actuales que ya escribiste ... */
+
+/* --- AJUSTE IDÉNTICO AL DE PRESENTACIÓN PARA EL MENÚ EN CELULARES --- */
+    @media (max-width: 768px) {
+        /* Le damos más espacio arriba a toda la página para que el menú no tape el título "Nuestros Residentes" */
+        body {
+            padding-top: 160px !important; 
+        }
+
+        .navbar {
+            display: flex !important;
+            flex-direction: column !important; /* Pone los bloques en vertical */
+            align-items: center !important;    /* Centra todo en medio */
+            text-align: center !important;
+            padding: 12px 0 !important;
+            height: auto !important;           /* Suelta el alto fijo para que no se corte */
+            max-height: none !important;
+        }
+
+        .nav-logo {
+            position: static !important;       /* Libera al logo para que se centre arriba */
+            margin-bottom: 5px !important;
+            order: 1 !important;               /* Primero el título */
+        }
+
+        /* ACOMODA EL BOTÓN DE LA LUNA ARRIBA JUNTO AL LOGO */
+        .btn-toggle-nav {
+            position: absolute !important;     /* Lo dejamos flotando arriba a la derecha */
+            right: 20px !important;
+            top: 15px !important;
+            margin: 0 !important;
+        }
+
+        /* CONTENEDOR DE ENLACES COMPACTO ABAJO */
+        .navbar .nav-links {
+            display: flex !important;
+            flex-direction: row !important;    /* Menú horizontal */
+            flex-wrap: wrap !important;        /* Si no caben en pantallas muy chicas, bajan ordenados */
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 10px !important;              /* Espaciado intermedio */
+            margin-top: 5px !important;
+            width: 100% !important;
+            order: 2 !important;               /* Los enlaces van abajo del todo */
+        }
+
+        /* Ajuste fino de las letras */
+        .nav-links a {
+            margin: 4px 8px !important;
+            font-size: 0.85rem !important;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-logo">Refugio Sky 🐾</div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="presentacion.html">Nosotros</a>
+            <a href="registro.html">Adopta</a>
+            <a href="galeria.html">Residentes</a>
+            <a href="tienda.html">Boutique</a>
+        </div>
+        <button class="btn-toggle-nav" onclick="cambiarModo()" id="modoBtn">🌙</button>
+    </nav>
+
+    <h1>Únete a la Familia Sky</h1>
+
+    <div class="form-container">
+        <form onsubmit="simularEnvioAdopcion(event)">
+            <div class="form-group">
+                <label>Nombre Completo:</label>
+                <input type="text" name="nombre_usuario" placeholder="Tu nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Dirección de Envío:</label>
+                <input type="text" name="direccion_envio" placeholder="Calle, número y ciudad" required>
+            </div>
+
+            <div class="form-group">
+                <label>¿A quién quieres adoptar?</label>
+                <input type="text" name="nombre_huron" placeholder="Ej: Violet, Canelo...">
+            </div>
+
+            <button type="submit" class="btn-submit">Enviar Solicitud ✨</button>
+        </form>
+    </div>
+
+    <script>
+        // --- CONTROL DE PERSISTENCIA MODO OSCURO ---
+        function aplicarTema(tema) {
+            if (tema === "dark") {
+                document.body.setAttribute("data-theme", "dark");
+                document.getElementById("modoBtn").innerHTML = "☀️";
+            } else {
+                document.body.removeAttribute("data-theme");
+                document.getElementById("modoBtn").innerHTML = "🌙";
+            }
+        }
+
+        aplicarTema(localStorage.getItem("tema"));
+
+        function cambiarModo() {
+            const body = document.body;
+            let nuevoTema = "light";
+
+            if (body.getAttribute("data-theme") === "dark") {
+                body.removeAttribute("data-theme");
+                document.getElementById("modoBtn").innerHTML = "🌙";
+                nuevoTema = "light";
+            } else {
+                body.setAttribute("data-theme", "dark");
+                document.getElementById("modoBtn").innerHTML = "☀️";
+                nuevoTema = "dark";
+            }
+            localStorage.setItem("tema", nuevoTema);
+        }
+
+        // --- SIMULACIÓN Y MOTOR DE CONFETI NATIVO ---
+        function simularEnvioAdopcion(event) {
+            event.preventDefault(); // Evitamos buscar guardar.php localmente
+            lanzarConfeti();
+            setTimeout(() => {
+                alert("🐾 ¡Solicitud de adopción enviada con éxito! (Simulación para Evaluación Visual)");
+                event.target.reset(); // Limpia los inputs del formulario
+            }, 100);
+        }
+
+        function lanzarConfeti() {
+            const canvas = document.getElementById("confetti-canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            // Colores desaturados coordinados con la paleta estética del Refugio Sky
+            const colors = ["#A28663", "#4E342E", "#8D6E63", "#EDE0D4", "#F5F5DC"];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * canvas.height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle);
+                    p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                    ctx.stroke();
+                });
+
+                if (particles.some(p => p.y < canvas.height)) {
+                    requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            draw();
+        }
+    </script>
+</body>
+</html>

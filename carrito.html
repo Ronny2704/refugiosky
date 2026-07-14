@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugio Sky - Mi Bolsa</title>
+    <style>
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --texto-secundario: #8D6E63;
+            --tarjeta: #ffffff;
+            --acento: #A28663;
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --texto-secundario: #D7CCC8;
+            --tarjeta: #3D2B27;
+            --acento: #D7CCC8;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding: 120px 20px 60px;
+            transition: all 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Canvas de Confeti */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--tarjeta);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .nav-logo { position: absolute; left: 50px; font-family: 'Georgia', serif; font-weight: bold; font-style: italic; font-size: 1.5rem; color: var(--texto-principal); }
+        .nav-links a { text-decoration: none; color: var(--texto-principal); margin: 0 15px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+        .btn-toggle-nav { position: absolute; right: 50px; background: none; border: 1.5px solid var(--texto-principal); border-radius: 50%; cursor: pointer; width: 35px; height: 35px; color: var(--texto-principal); display: flex; align-items: center; justify-content: center; }
+
+        /* --- CONTENEDOR CARRITO --- */
+        .contenedor-carrito {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--tarjeta);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .item-carrito {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--acento);
+        }
+
+        .btn-vaciar {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        /* --- FORMULARIO --- */
+        .form-pedido {
+            margin-top: 40px;
+            display: grid;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .form-pedido label { font-weight: bold; font-size: 0.9rem; }
+
+        input {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--acento);
+            background: var(--fondo);
+            color: var(--texto-principal);
+            outline: none;
+        }
+
+        .btn-finalizar {
+            width: 100%;
+            background: var(--texto-principal);
+            color: var(--fondo);
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .btn-finalizar:hover { background-color: var(--acento); color: white; }
+
+        /* =========================================================================
+           --- AJUSTE RESPONSIVO INTERCONECTADO PARA EL MENÚ EN CELULARES --- 
+           ========================================================================= */
+        @media (max-width: 768px) {
+            /* Empuja el cuerpo hacia abajo para que el menú de doble altura no tape el h1 */
+            body {
+                padding-top: 165px !important; 
+            }
+
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important; /* Estructura vertical */
+                align-items: center !important;    /* Centra logo y enlaces */
+                text-align: center !important;
+                padding: 12px 0 !important;
+                height: auto !important;           /* Desbloquea altos restrictivos */
+                max-height: none !important;
+            }
+
+            .nav-logo {
+                position: static !important;       /* Libera de la izquierda para centrar */
+                margin-bottom: 5px !important;
+                order: 1 !important;               /* Va primero arriba */
+            }
+
+            /* ACOMODA EL BOTÓN DE LA LUNA ARRIBA A LA DERECHA */
+            .btn-toggle-nav {
+                position: absolute !important;     
+                right: 20px !important;
+                top: 15px !important;
+                margin: 0 !important;
+            }
+
+            /* CONTENEDOR DE ENLACES EN FILA HORIZONTAL COMPACTA */
+            .navbar .nav-links {
+                display: flex !important;
+                flex-direction: row !important;    /* Asegura la disposición horizontal */
+                flex-wrap: wrap !important;        /* Envuelve enlaces si la pantalla es muy chica */
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 10px !important;              
+                margin-top: 5px !important;
+                width: 100% !important;
+                order: 2 !important;               /* Se posiciona abajo del logo */
+            }
+
+            /* Ajuste de márgenes y tipografía de enlaces en móvil */
+            .nav-links a {
+                margin: 4px 8px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* AJUSTE EXTRA: Optimización del contenedor de compras en celular */
+            .contenedor-carrito {
+                padding: 20px 15px !important;
+                margin: 0 5px !important;
+            }
+
+            .item-carrito {
+                font-size: 0.9rem !important;
+                padding: 12px 0 !important;
+            }
+
+            h1 { font-size: 2.2rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-logo">Refugio Sky 🐾</div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="presentacion.html">Nosotros</a>
+            <a href="registro.html">Adopta</a>
+            <a href="galeria.html">Residentes</a>
+            <a href="tienda.html">Boutique 🛍️</a>
+        </div>
+        <button class="btn-toggle-nav" onclick="cambiarModo()" id="modoBtn">🌙</button>
+    </nav>
+
+    <h1>Tu Bolsa de Compras</h1>
+    
+    <div class="contenedor-carrito">
+        <div id="lista-productos"></div>
+        <h2 id="total-pago" style="color: var(--acento)">Total: $0.00</h2>
+        <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Bolsa</button>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid var(--acento); opacity: 0.3;">
+
+        <h3>Datos para el Envío 🚚</h3>
+        <form class="form-pedido" id="pedido-form" onsubmit="simularEnvioCarrito(event)">
+            <label>¿Quién recibe?</label>
+            <input type="text" name="nombre_usuario" placeholder="Nombre completo" required>
+            
+            <label>¿A dónde lo enviamos?</label>
+            <input type="text" name="direccion_envio" placeholder="Dirección completa (Calle, No, Colonia)" required>
+            
+            <label>Teléfono de contacto</label>
+            <input type="tel" name="telefono" placeholder="Tu número de celular" required>
+            
+            <button type="submit" class="btn-finalizar">Confirmar y Finalizar Compra</button>
+        </form>
+    </div>
+
+    <script {nonce}>
+        // --- GESTIÓN DE TEMA ---
+        function aplicarTema(tema) {
+            if (tema === "dark") {
+                document.body.setAttribute("data-theme", "dark");
+                document.getElementById("modoBtn").innerHTML = "☀️";
+            } else {
+                document.body.removeAttribute("data-theme");
+                document.getElementById("modoBtn").innerHTML = "🌙";
+            }
+        }
+        aplicarTema(localStorage.getItem("tema"));
+
+        function cambiarModo() {
+            const nuevoTema = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            localStorage.setItem("tema", nuevoTema);
+            aplicarTema(nuevoTema);
+        }
+
+        // --- SISTEMA DEL CARRITO ---
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        const lista = document.getElementById('lista-productos');
+        const totalTxt = document.getElementById('total-pago');
+
+        function renderCarrito() {
+            lista.innerHTML = "";
+            let total = 0;
+
+            if(carrito.length === 0) {
+                lista.innerHTML = "<p style='padding: 20px;'>Tu bolsa está vacía actualmente. 🦦</p>";
+                return;
+            }
+
+            carrito.forEach((prod) => {
+                const div = document.createElement('div');
+                div.className = 'item-carrito';
+                div.innerHTML = `<span>${prod.nombre}</span> <b>${prod.precio}</b>`;
+                lista.appendChild(div);
+                
+                let precioLimpio = prod.precio.replace('$', '').replace(',', '').trim();
+                total += parseFloat(precioLimpio);
+            });
+
+            totalTxt.innerText = `Total: $${total.toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+        }
+
+        function vaciarCarrito() {
+            if(confirm("¿Estás seguro de que quieres vaciar tu bolsa?")) {
+                localStorage.removeItem("carrito");
+                carrito = [];
+                renderCarrito();
+            }
+        }
+
+        // --- SIMULACIÓN DE COMPRA CON CONFETI ---
+        function simularEnvioCarrito(event) {
+            event.preventDefault();
+            
+            if(carrito.length === 0) {
+                alert("No puedes enviar un pedido vacío");
+                return;
+            }
+
+            lanzarConfeti();
+            setTimeout(() => {
+                alert("🛍️ ¡Compra procesada con éxito! Tu pedido ha sido registrado en la simulación visual.");
+                localStorage.removeItem("carrito");
+                carrito = [];
+                renderCarrito();
+                event.target.reset(); // Resetea el formulario de envío
+            }, 100);
+        }
+
+        function lanzarConfeti() {
+            const canvas = document.getElementById("confetti-canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ["#A28663", "#4E342E", "#8D6E63", "#EDE0D4", "#F5F5DC"];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * canvas.height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle);
+                    p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                    ctx.stroke();
+                });
+
+                if (particles.some(p => p.y < canvas.height)) {
+                    requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            draw();
+        }
+
+        renderCarrito();
+    </script>
+</body>
+</html>

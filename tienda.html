@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugio Sky - Boutique</title>
+    <style>
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --texto-secundario: #8D6E63;
+            --tarjeta: #ffffff;
+            --acento: #A28663;
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --texto-secundario: #D7CCC8;
+            --tarjeta: #3D2B27;
+            --acento: #D7CCC8;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding-top: 100px;
+            padding-bottom: 60px;
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--tarjeta);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo { position: absolute; left: 50px; font-family: 'Georgia', serif; font-weight: bold; font-style: italic; font-size: 1.5rem; color: var(--texto-principal); }
+        .nav-links a { text-decoration: none; color: var(--texto-principal); margin: 0 10px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+        
+        /* Estilo para el contador del carrito */
+        #cart-count {
+            background-color: var(--acento);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .btn-toggle-nav { position: absolute; right: 50px; background: none; border: 1.5px solid var(--texto-principal); border-radius: 50%; cursor: pointer; width: 35px; height: 35px; color: var(--texto-principal); display: flex; align-items: center; justify-content: center; }
+
+        /* --- SECCIONES DE TIENDA --- */
+        h1 { font-family: 'Georgia', serif; font-size: 3rem; font-style: italic; margin-bottom: 10px; }
+        .categoria-titulo { 
+            font-family: 'Georgia', serif; 
+            font-size: 1.8rem; 
+            margin-top: 60px; 
+            color: var(--acento);
+            border-bottom: 2px solid var(--acento);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        .grid-tienda {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .card-producto {
+            background-color: var(--tarjeta);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-producto:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card-producto img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-producto h3 { margin: 10px 0 5px 0; font-size: 1.1rem; }
+        .card-producto p { font-size: 0.85rem; color: var(--texto-secundario); margin: 0; }
+
+        .precio {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--acento);
+            margin: 15px 0 !important;
+        }
+
+        .btn-comprar {
+            background-color: var(--texto-principal);
+            color: var(--fondo);
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .btn-comprar:hover { background-color: var(--acento); color: white; }
+
+        /* =========================================================================
+           --- AJUSTE RESPONSIVO INTERCONECTADO PARA EL MENÚ EN CELULARES --- 
+           ========================================================================= */
+        @media (max-width: 768px) {
+            /* Empuja el cuerpo hacia abajo para que el nuevo alto del menú no tape "Boutique Sky" */
+            body {
+                padding-top: 160px !important; 
+            }
+
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important; /* Estructura vertical */
+                align-items: center !important;    /* Centra logo y enlaces */
+                text-align: center !important;
+                padding: 12px 0 !important;
+                height: auto !important;           /* Desbloquea el alto rígido */
+                max-height: none !important;
+            }
+
+            .nav-logo {
+                position: static !important;       /* Libera el logo para centrarlo arriba */
+                margin-bottom: 5px !important;
+                order: 1 !important;               /* Va primero */
+            }
+
+            /* ACOMODA EL BOTÓN DE LA LUNA ARRIBA A LA DERECHA */
+            .btn-toggle-nav {
+                position: absolute !important;     
+                right: 20px !important;
+                top: 15px !important;
+                margin: 0 !important;
+            }
+
+            /* CONTENEDOR DE ENLACES EN FILA HORIZONTAL COMPACTA */
+            .navbar .nav-links {
+                display: flex !important;
+                flex-direction: row !important;    /* Forzado horizontal */
+                flex-wrap: wrap !important;        /* Baja con orden si falta espacio */
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 10px !important;              
+                margin-top: 5px !important;
+                width: 100% !important;
+                order: 2 !important;               /* Los enlaces van debajo del título */
+            }
+
+            /* Ajuste de tamaño de letras en móvil */
+            .nav-links a {
+                margin: 4px 8px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* AJUSTE EXTRA: Cuadrícula de productos adaptada a móviles */
+            .grid-tienda {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+                gap: 15px !important;
+                padding: 0 15px !important;
+            }
+            h1 { font-size: 2.2rem !important; }
+            .categoria-titulo { font-size: 1.4rem !important; margin-top: 40px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">Refugio Sky 🐾</div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="presentacion.html">Nosotros</a>
+            <a href="registro.html">Adopta</a>
+            <a href="galeria.html">Residentes</a>
+            <a href="tienda.html" style="color: var(--acento)">Boutique</a>
+            <a href="carrito.html">Bolsa 🛒<span id="cart-count">0</span></a>
+        </div>
+        <button class="btn-toggle-nav" onclick="cambiarModo()" id="modoBtn">🌙</button>
+    </nav>
+
+    <h1>Boutique Sky</h1>
+    <p>Calidad premium para el bienestar de tus hurones.</p>
+
+    <h2 class="categoria-titulo">Alimentación y Premios 🥗</h2>
+    <div class="grid-tienda">
+        <div class="card-producto">
+            <img src="Imagenes/salmon.png" alt="Salmon Bites">
+            <h3>Salmon Bites (2kg)</h3>
+            <p>Snack natural de salmón fresco.</p>
+            <p class="precio">$100.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/pollo.png" alt="Chicken Bites">
+            <h3>Chicken Bites (2kg)</h3>
+            <p>Pechuga de pollo deshidratada.</p>
+            <p class="precio">$100.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/res.png" alt="Beef Bites">
+            <h3>Beef Bites (2kg)</h3>
+            <p>Res seleccionada para masticar.</p>
+            <p class="precio">$100.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/pavo.png" alt="Turkey Bites">
+            <h3>Turkey Bites (2kg)</h3>
+            <p>Suave pavo para paladares finos.</p>
+            <p class="precio">$100.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/conejo.png" alt="Rabbit Bites">
+            <h3>Rabbit Bites (2kg)</h3>
+            <p>Proteína hipoalergénica de conejo.</p>
+            <p class="precio">$100.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/huevos de codorniz.png" alt="Egg Bites">
+            <h3>Egg Bites (2kg)</h3>
+            <p>Suplemento nutritivo de codorniz.</p>
+            <p class="precio">$350.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/tiras de carne seca.png" alt="Meat Bites">
+            <h3>Meat Bites (1kg)</h3>
+            <p>Tiras de carne seca premium.</p>
+            <p class="precio">$1,000.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+    </div>
+
+    <h2 class="categoria-titulo">Camas y Descanso 💤</h2>
+    <div class="grid-tienda">
+        <div class="card-producto">
+            <img src="Imagenes/cama_cafe.png" alt="Nube Chocolate">
+            <h3>Cama Nube Chocolate</h3>
+            <p>Máximo confort en tono café.</p>
+            <p class="precio">$450.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/cama_gris.png" alt="Canasta Oxford">
+            <h3>Canasta Oxford</h3>
+            <p>Diseño elegante en gris minimalista.</p>
+            <p class="precio">$420.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/cama_roja.png" alt="Canasta Cherry">
+            <h3>Canasta Cherry</h3>
+            <p>Color vibrante y textura suave.</p>
+            <p class="precio">$420.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/cama_negra.png" alt="Canasta Ceniza">
+            <h3>Canasta Ceniza</h3>
+            <p>Resistente y térmica en color negro.</p>
+            <p class="precio">$420.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+    </div>
+
+    <h2 class="categoria-titulo">Cuidado y Utensilios ✨</h2>
+    <div class="grid-tienda">
+        <div class="card-producto">
+            <img src="Imagenes/kit-limpieza.png" alt="Kit Limpieza">
+            <h3>Kit de Limpieza Completo</h3>
+            <p>Shampoo, corta uñas, cepillos e isopos.</p>
+            <p class="precio">$250.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/bebedero.png" alt="Bebedero">
+            <h3>Bebedero de Cristal</h3>
+            <p>Capacidad de 250ml anti-goteo.</p>
+            <p class="precio">$120.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/comedero-doble.png" alt="Comedero Doble">
+            <h3>Comedero Doble Elevado</h3>
+            <p>Madera con porcelana ergonómica.</p>
+            <p class="precio">$150.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/comedero-individual.png" alt="Comedero Individual">
+            <h3>Comedero Individual</h3>
+            <p>Porcelana fina con base de madera.</p>
+            <p class="precio">$120.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+    </div>
+
+    <h2 class="categoria-titulo">Diversión y Entretenimiento 🎡</h2>
+    <div class="grid-tienda">
+        <div class="card-producto">
+            <img src="Imagenes/tuneles-gris.png" alt="Tuneles Tela">
+            <h3>Set de Túneles Grises (3pcs)</h3>
+            <p>Tela suave para esconderse.</p>
+            <p class="precio">$250.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/tuneles-colores.png" alt="Tuneles Plastico">
+            <h3>Túneles Plásticos (5pcs)</h3>
+            <p>Divertidos y fáciles de limpiar.</p>
+            <p class="precio">$150.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/diversion-1.png" alt="Paquete 1">
+            <h3>Paquete Diversión 1</h3>
+            <p>Varita, pelota cascabel y piernita pollo.</p>
+            <p class="precio">$180.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+        <div class="card-producto">
+            <img src="Imagenes/diversion-2.png" alt="Paquete 2">
+            <h3>Paquete Diversión 2</h3>
+            <p>Hamaca, pelota goma y peluche salmón.</p>
+            <p class="precio">$210.00</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+        </div>
+    </div>
+
+    <script {nonce}>
+        const body = document.body;
+        const btn = document.getElementById("modoBtn");
+
+        // --- LÓGICA TEMA ---
+        function aplicarTema(tema) {
+            if (tema === "dark") {
+                body.setAttribute("data-theme", "dark");
+                btn.innerHTML = "☀️";
+            } else {
+                body.removeAttribute("data-theme");
+                btn.innerHTML = "🌙";
+            }
+        }
+
+        const temaGuardado = localStorage.getItem("tema");
+        aplicarTema(temaGuardado);
+
+        function cambiarModo() {
+            const nuevoTema = body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            localStorage.setItem("tema", nuevoTema);
+            aplicarTema(nuevoTema);
+        }
+
+        // --- LÓGICA CARRITO ---
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        
+        function actualizarContador() {
+            document.getElementById('cart-count').innerText = carrito.length;
+        }
+
+        // Ejecutar al cargar la página
+        actualizarContador();
+
+        // Configurar todos los botones de compra
+        document.querySelectorAll('.btn-comprar').forEach(boton => {
+            boton.addEventListener('click', () => {
+                const card = boton.closest('.card-producto');
+                const nombre = card.querySelector('h3').innerText;
+                const precio = card.querySelector('.precio').innerText;
+                
+                // Guardar en el arreglo
+                carrito.push({ nombre, precio });
+                
+                // Guardar en la memoria del navegador
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                
+                // Actualizar el numerito arriba
+                actualizarContador();
+
+                alert(`¡${nombre} se agregó a tu bolsa! 🦦`);
+            });
+        });
+    </script>
+
+    <!-- --- CHATBOT CONTAINER --- -->
+    <div id="chatbot-container" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        font-family: 'Verdana', sans-serif;
+    ">
+        <div id="chat-window" style="
+            display: none;
+            width: 320px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 2px solid #A28663;
+        ">
+            <div style="background: #4E342E; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span>Asistente Sky 🦦</span>
+                <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2rem;">×</button>
+            </div>
+            
+            <div style="padding: 15px; max-height: 450px; overflow-y: auto; color: #4E342E; background-color: #fff;">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">¡Hola! Soy tu asistente nutria. Selecciona una duda frecuente:</p>
+                
+                <select id="chat-selector" onchange="responder()" style="
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 1px solid #A28663;
+                    background: #F5F5DC;
+                    color: #4E342E;
+                    font-size: 0.85rem;
+                    cursor: pointer;
+                    margin-bottom: 15px;
+                ">
+                    <option value="">-- Elige una pregunta --</option>
+                    <option value="emergencia" style="color: #d9534f; font-weight: bold;">🚨 EMERGENCIAS (Signos de Alarma)</option>
+                    <option value="olor">¿Por qué huelen fuerte?</option>
+                    <option value="comida">¿Qué deben comer?</option>
+                    <option value="sueño">¿Duermen mucho?</option>
+                    <option value="arena">¿Usan caja de arena?</option>
+                    <option value="baile">¿Qué es el "baile de la guerra"?</option>
+                    <option value="vacunas">¿Necesitan vacunas?</option>
+                    <option value="casa">¿Pueden andar sueltos?</option>
+                    <option value="adopcion">¿Cómo adopto?</option>
+                </select>
+                
+                <div id="chat-response-box" style="
+                    background: #fdfaf3;
+                    padding: 12px;
+                    border-radius: 10px;
+                    border-left: 4px solid #A28663;
+                    display: none;
+                ">
+                    <div id="bot-answer" style="font-size: 0.85rem; line-height: 1.4; margin: 0;"></div>
+                </div>
+            </div>
+        </div>
+        <img src="Imagenes/botnutria.png" alt="Nutria Bot" style="
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid #A28663;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            object-fit: cover;
+            background: white;
+        " id="chat-toggle-btn" onclick="toggleChat()" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+
+    <script {nonce}>
+        const chatWindow = document.getElementById('chat-window');
+        const chatResponseBox = document.getElementById('chat-response-box');
+        const botAnswer = document.getElementById('bot-answer');
+        const selector = document.getElementById('chat-selector');
+
+        function toggleChat() {
+            chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'block' : 'none';
+        }
+
+        function responder() {
+            const seleccion = selector.value;
+            if (seleccion === "") {
+                chatResponseBox.style.display = 'none';
+                return;
+            }
+
+            chatResponseBox.style.display = 'block';
+            let texto = "";
+            switch(seleccion) {
+                case 'emergencia':
+                    texto = "<b style='color: #d9534f;'>🚨 SIGNOS DE ALARMA:</b><br>" +
+                            "Lleva a tu hurón al veterinario de inmediato si notas:<br>" +
+                            "• <b>Letargo extremo:</b> No despierta o está muy débil.<br>" +
+                            "• <b>Hipoglucemia:</b> Salivación excesiva o manoteo en la boca.<br>" +
+                            "• <b>Diarrea constante:</b> Color verde oscuro o con sangre.<br>" +
+                            "• <b>Ayuno prolongado:</b> Si no come en más de 6 horas.<br>" +
+                            "• <b>Pérdida de pelo:</b> En la base de la cola o cuerpo.";
+                    break;
+                case 'olor':
+                    texto = "<b>Respuesta:</b> El olor es natural. Bañarlos seguido es un error porque producen más grasa.<br><b>Solución:</b> Limpieza de cobijas semanal y arena a diario.";
+                    break;
+                case 'comida':
+                    texto = "<b>Carnívoros estrictos:</b> Requieren 35-40% de proteína. Evita cereales y azúcar. Solo pueden comer alimento de gato si es 'Kitten Premium'.";
+                    break;
+                case 'sueño':
+                    texto = "¡Sí! Duermen entre 18 y 20 horas al día. Son crepusculares, pero adaptan su horario al tuyo para poder jugar.";
+                    break;
+                case 'arena':
+                    texto = "Sí, pero requieren paciencia. Coloca la caja en las esquinas que ya usan y utiliza refuerzo positivo con premios.";
+                    break;
+                case 'baile':
+                    texto = "Es pura felicidad. Saltan de lado con la espalda arqueada y hacen ruidos (dooking). ¡Significa que se están divirtiendo!";
+                    break;
+                case 'vacunas':
+                    texto = "¡Obligatorias! Contra Moquillo (mortal) y Rabia. Además, requieren revisiones anuales preventivas.";
+                    break;
+                case 'casa':
+                    texto = "Solo si está 'a prueba de hurones'. Revisa huecos tras el refrigerador, lavadoras y sillones. Si su cabeza pasa, el cuerpo también.";
+                    break;
+                case 'adopcion':
+                    texto = "Ve a la sección <b>'Adopta'</b> y llena el registro. Te contactaremos para una entrevista online. ¡Te esperamos!";
+                    break;
+            }
+            botAnswer.innerHTML = texto;
+        }
+    </script>
+
+</body>
+</html>

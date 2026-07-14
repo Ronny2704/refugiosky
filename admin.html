@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugio Sky - Panel de Control</title>
+    <style>
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --tarjeta: #ffffff;
+            --acento: #A28663;
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --tarjeta: #3D2B27;
+            --acento: #D7CCC8;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            transition: all 0.4s ease;
+        }
+
+        /* --- ENCABEZADO CENTRADO --- */
+        .header-admin {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header-admin h1 {
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 2.2rem;
+            margin: 0;
+        }
+
+        .subtitulo {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+
+        /* --- CONTENEDOR DE TABLAS --- */
+        .contenedor-admin {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .seccion-admin {
+            background-color: var(--tarjeta);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            border-left: 8px solid var(--acento);
+        }
+
+        h2 {
+            font-family: 'Georgia', serif;
+            margin-top: 0;
+            color: var(--acento);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        th {
+            border-bottom: 2px solid var(--acento);
+            padding: 12px;
+            font-size: 0.9rem;
+            color: var(--acento);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(162, 134, 99, 0.2);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .badge {
+            background-color: var(--acento);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .img-admin {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--acento);
+        }
+
+        .status-ok {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .btn-regresar {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: var(--texto-principal);
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 1px solid var(--texto-principal);
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-regresar:hover {
+            background-color: var(--texto-principal);
+            color: var(--fondo);
+        }
+
+        /* --- MODO OSCURO --- */
+        .btn-toggle-admin {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--tarjeta);
+            border: 1px solid var(--texto-principal);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            color: var(--texto-principal);
+            z-index: 100;
+        }
+            /* ... Todos tus estilos actuales que ya escribiste ... */
+
+    /* --- AL FINAL DE TODO, PEGAS ESTO --- */
+    @media (max-width: 768px) {
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px 0;
+            height: auto !important;
+        }
+        nav .enlaces, nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <button class="btn-toggle-admin" onclick="cambiarModo()" id="modoBtn">🌙</button>
+
+    <div class="header-admin">
+        <p class="subtitulo">Panel de Control Interno | Admin: Veronica Herrera</p>
+        <h1>Refugio Sky 🐾</h1>
+    </div>
+
+    <div class="contenedor-admin">
+
+        <div class="seccion-admin">
+            <h2>Gestión de Residentes 🦦</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nombre</th>
+                        <th>Personalidad</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><img src="Imagenes/arthurmorgan.jpg" class="img-admin"></td><td>Arthur Morgan</td><td>El líder con corazón de oro.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/joelmiller.jpg" class="img-admin"></td><td>Joel Miller</td><td>Protector y valiente.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/copito.jpg" class="img-admin"></td><td>Copito</td><td>Blanco como la nieve.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/bandido.jpg" class="img-admin"></td><td>Bandido</td><td>Experto en travesuras.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/canelo.jpg" class="img-admin"></td><td>Canelo</td><td>Tan dulce como su nombre.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/chocolate.jpg" class="img-admin"></td><td>Chocolate</td><td>El rey de las siestas.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/dante.jpg" class="img-admin"></td><td>Dante</td><td>Un pequeño aventurero.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/foxy.jpg" class="img-admin"></td><td>Foxy</td><td>Astuto y veloz.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/katsy.jpg" class="img-admin"></td><td>Katsy</td><td>Energía inagotable.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/somita.jpg" class="img-admin"></td><td>Somita</td><td>Pequeña gran amiga.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/tashaylatifa.jpg" class="img-admin"></td><td>Tashaylatifa</td><td>La reina del refugio.</td><td class="status-ok">✅ Disponible</td></tr>
+                    <tr><td><img src="Imagenes/violet.jpg" class="img-admin"></td><td>Violet</td><td>Elegante y curiosa.</td><td class="status-ok">✅ Disponible</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="seccion-admin">
+            <h2>Alimentación y Premios 🥗</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Stock Actual</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Salmon Bites (2kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                    <tr><td>Chicken Bites (2kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                    <tr><td>Beef Bites (2kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                    <tr><td>Turkey Bites (2kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                    <tr><td>Rabbit Bites (2kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                    <tr><td>Egg Bites (2kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                    <tr><td>Meat Bites (1kg)</td><td>Comida</td><td><span class="badge">100 pzs</span></td><td>✅ Óptimo</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="seccion-admin">
+            <h2>Camas y Descanso 💤</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Stock Actual</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Cama Nube Chocolate</td><td><span class="badge">50 pzs</span></td><td>✅ Disponible</td></tr>
+                    <tr><td>Canasta Oxford</td><td><span class="badge">50 pzs</span></td><td>✅ Disponible</td></tr>
+                    <tr><td>Canasta Cherry</td><td><span class="badge">50 pzs</span></td><td>✅ Disponible</td></tr>
+                    <tr><td>Canasta Ceniza</td><td><span class="badge">50 pzs</span></td><td>✅ Disponible</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="seccion-admin">
+            <h2>Diversión y Entretenimiento 🎡</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Stock Actual</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Set de Túneles Grises</td><td><span class="badge">30 pzs</span></td><td>⚠️ Reordenar</td></tr>
+                    <tr><td>Túneles Plásticos</td><td><span class="badge">30 pzs</span></td><td>⚠️ Reordenar</td></tr>
+                    <tr><td>Paquete Diversión 1</td><td><span class="badge">30 pzs</span></td><td>⚠️ Reordenar</td></tr>
+                    <tr><td>Paquete Diversión 2</td><td><span class="badge">30 pzs</span></td><td>⚠️ Reordenar</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="seccion-admin">
+            <h2>Cuidado y Utensilios ✨</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Stock Actual</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Kit de Limpieza Completo</td><td><span class="badge">80 pzs</span></td><td>✅ Disponible</td></tr>
+                    <tr><td>Bebedero de Cristal</td><td><span class="badge">80 pzs</span></td><td>✅ Disponible</td></tr>
+                    <tr><td>Comedero Doble Elevado</td><td><span class="badge">80 pzs</span></td><td>✅ Disponible</td></tr>
+                    <tr><td>Comedero Individual</td><td><span class="badge">80 pzs</span></td><td>✅ Disponible</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="presentacion.html" class="btn-regresar">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <script>
+        const body = document.body;
+        const btn = document.getElementById("modoBtn");
+
+        function aplicarTema(tema) {
+            if (tema === "dark") {
+                body.setAttribute("data-theme", "dark");
+                btn.innerHTML = "☀️";
+            } else {
+                body.removeAttribute("data-theme");
+                btn.innerHTML = "🌙";
+            }
+        }
+
+        const temaGuardado = localStorage.getItem("tema");
+        aplicarTema(temaGuardado);
+
+        function cambiarModo() {
+            const nuevoTema = body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            localStorage.setItem("tema", nuevoTema);
+            aplicarTema(nuevoTema);
+        }
+    </script>
+</body>
+</html>

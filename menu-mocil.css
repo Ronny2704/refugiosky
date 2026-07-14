@@ -1,0 +1,18 @@
+/* --- ESTE CÓDIGO SOLO SE ACTIVA EN CELULARES --- */
+@media (max-width: 768px) {
+    /* Selecciona únicamente tu barra de menú */
+    .navbar {
+        display: flex !important;
+        flex-direction: column !important; /* Los enlaces se acomodan hacia abajo */
+        align-items: center !important;    /* Centra todo el contenido */
+        text-align: center !important;
+        padding: 15px 0 !important;
+        height: auto !important;           /* Permite que crezca hacia abajo sin encimarse */
+    }
+
+    /* Le da un espacio cómodo a cada enlace para que no se amontonen */
+    .navbar a, .navbar ul, .navbar li {
+        display: inline-block !important;
+        margin: 6px 10px !important;       
+    }
+}

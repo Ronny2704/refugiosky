@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugio Sky - Bienvenidos</title>
+    <style>
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --texto-secundario: #8D6E63;
+            --boton: #4E342E;
+            --boton-texto: #F5F5DC;
+            --brillo: rgba(141, 110, 99, 0.3);
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --texto-secundario: #D7CCC8;
+            --boton: #A28663;
+            --boton-texto: #2C1E1B;
+            --brillo: rgba(237, 224, 212, 0.2);
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            transition: all 0.4s ease;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            overflow: hidden; 
+        }
+
+        .btn-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--texto-principal);
+            color: var(--fondo);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        h1 { 
+            font-size: 5rem; 
+            font-style: italic; 
+            margin-bottom: 0;
+            display: inline-block;
+            animation: flotar 3s ease-in-out infinite;
+            text-shadow: 2px 2px 10px var(--brillo);
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); text-shadow: 2px 15px 15px var(--brillo); }
+            100% { transform: translateY(0px); }
+        }
+
+        .logo { 
+            font-size: 120px; 
+            margin: 30px 0; 
+            animation: aparecer 2s ease-out;
+            cursor: default;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .subtitulo {
+            font-family: 'Verdana', sans-serif;
+            font-size: 1.2rem;
+            color: var(--texto-secundario);
+            font-style: italic;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: aparecer 1s ease-out 1s forwards; 
+        }
+
+        .btn-entrar {
+            background-color: var(--boton);
+            color: var(--boton-texto);
+            padding: 18px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-family: 'Verdana', sans-serif;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-entrar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+            /* ... Todos tus estilos actuales que ya escribiste ... */
+
+    /* --- AL FINAL DE TODO, PEGAS ESTO --- */
+    @media (max-width: 768px) {
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px 0;
+            height: auto !important;
+        }
+        nav .enlaces, nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <button class="btn-toggle" onclick="cambiarModo()" id="modoBtn">🌙 Modo Oscuro</button>
+
+    <h1>Refugio Sky</h1>
+    
+    <div class="logo">🦦</div>
+
+    <p class="subtitulo">Un lugar donde cada hurón encuentra su cielo.</p>
+
+    <a href="presentacion.html" class="btn-entrar">ENTRAR AL REFUGIO</a>
+
+    <script>
+        const body = document.body;
+        const btn = document.getElementById("modoBtn");
+
+        const temaActual = localStorage.getItem("tema");
+        if (temaActual === "dark") {
+            body.setAttribute("data-theme", "dark");
+            btn.innerHTML = "☀️ Modo Claro";
+        }
+
+        function cambiarModo() {
+            if (body.getAttribute("data-theme") === "dark") {
+                body.removeAttribute("data-theme");
+                localStorage.setItem("tema", "light");
+                btn.innerHTML = "🌙 Modo Oscuro";
+            } else {
+                body.setAttribute("data-theme", "dark");
+                localStorage.setItem("tema", "dark");
+                btn.innerHTML = "☀️ Modo Claro";
+            }
+        }
+    </script>
+
+</body>
+</html>
