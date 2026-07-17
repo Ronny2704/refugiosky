@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia de Joel - Refugio Sky</title>
+    <style>
+
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --texto-secundario: #8D6E63;
+            --tarjeta: #ffffff;
+            --acento: #A28663;
+            --suave: #FAF3E0;
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --texto-secundario: #D7CCC8;
+            --tarjeta: #3D2B27;
+            --acento: #D7CCC8;
+            --suave: #4A3733;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding-top: 100px;
+            padding-bottom: 80px;
+            line-height: 1.6;
+            transition: all 0.4s ease;
+        }
+
+        .navbar {
+            background-color: var(--tarjeta);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .nav-logo { position: absolute; left: 50px; font-family: 'Georgia', serif; font-weight: bold; font-style: italic; font-size: 1.5rem; color: var(--texto-principal); }
+        .nav-links a { text-decoration: none; color: var(--texto-principal); margin: 0 15px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+        .btn-toggle-nav { position: absolute; right: 50px; background: none; border: 1.5px solid var(--texto-principal); border-radius: 50%; width: 35px; height: 35px; cursor: pointer; color: var(--texto-principal); display: flex; align-items: center; justify-content: center; }
+
+        .contenedor-ficha {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--tarjeta);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .banner-huron {
+            width: 100%;
+            height: 450px;
+        }
+
+        .banner-huron img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contenido-inferior {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        h1 { font-family: 'Georgia', serif; font-size: 2.8rem; margin: 0; color: var(--acento); }
+        .slogan { font-style: italic; color: var(--texto-secundario); margin-bottom: 25px; display: block; }
+
+        .recuadro-datos {
+            background-color: var(--suave);
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        .dato-item { margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
+        .dato-item:last-child { border: none; }
+        .dato-item b { display: block; text-transform: uppercase; font-size: 0.7rem; color: var(--acento); letter-spacing: 1px; }
+
+        .col-derecha h2 { font-family: 'Georgia', serif; color: var(--acento); margin-top: 0; }
+        .texto-rescate { font-size: 1.05rem; line-height: 1.8; }
+        .frase-final { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-top: 2px solid var(--acento); 
+            font-weight: bold; 
+            color: var(--texto-principal);
+            text-align: center;
+        }
+
+        .btn-regresar {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: var(--acento);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-regresar:hover { transform: translateX(-5px); }
+
+        @media (max-width: 768px) {
+            .contenido-inferior { grid-template-columns: 1fr; }
+            .banner-huron { height: 300px; }
+            .navbar { padding: 15px 20px; }
+            .nav-logo { display: none; }
+        }
+            /* ... Todos tus estilos actuales que ya escribiste ... */
+
+    /* --- AL FINAL DE TODO, PEGAS ESTO --- */
+    @media (max-width: 768px) {
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px 0;
+            height: auto !important;
+        }
+        nav .enlaces, nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">Refugio Sky 🐾</div>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="presentacion.html">Nosotros</a>
+            <a href="registro.html">Adopta</a>
+            <a href="galeria.html">Residentes</a>
+            <a href="tienda.html">Boutique</a>
+        </div>
+        <button class="btn-toggle-nav" onclick="cambiarModo()" id="modoBtn">🌙</button>
+    </nav>
+
+<div class="contenedor-ficha">
+        <div class="banner-huron">
+            <img src="Imagenes/bandido.jpg" alt="Bandido">
+        </div>
+
+        <div class="contenido-inferior">
+            <div class="col-izquierda">
+                <h1>Bandido</h1>
+                <span class="slogan">"Un experto en travesuras que te robará el corazón."</span>
+
+                <div class="recuadro-datos">
+                    <div class="dato-item"><b>Peso</b> 1.3 kg</div>
+                    <div class="dato-item"><b>Edad</b> 1.2 años (Joven)</div>
+                    <div class="dato-item"><b>Comida Favorita</b> Premios de huevo</div>
+                    <div class="dato-item"><b>Actividad Preferida</b> Esconder calcetines</div>
+                </div>
+                
+                <a href="galeria.html" class="btn-regresar">← Volver a la Galería</a>
+            </div>
+
+            <div class="col-derecha">
+                <h2>Su Rescate ✨</h2>
+                <p class="texto-rescate">
+                    Bandido vivía en una casa donde no entendían su energía. Sufrió un pequeño accidente que le dejó una marquita en su oreja y fue rescatado justo antes de ser abandonado en un parque público.
+                    <br><br>
+                    En el refugio descubrimos que no es mal portado, ¡solo es muy inteligente! Ahora usa su energía para jugar y esconder los juguetes (y a veces los zapatos) de los voluntarios.
+                </p>
+                <div class="frase-final">
+                    "Ya no necesita robar para sobrevivir, ahora solo roba sonrisas."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const body = document.body;
+        const btn = document.getElementById("modoBtn");
+
+        function aplicarTema(tema) {
+            if (tema === "dark") {
+                body.setAttribute("data-theme", "dark");
+                btn.innerHTML = "☀️";
+            } else {
+                body.removeAttribute("data-theme");
+                btn.innerHTML = "🌙";
+            }
+        }
+        const temaGuardado = localStorage.getItem("tema");
+        aplicarTema(temaGuardado);
+        function cambiarModo() {
+            const nuevoTema = body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            localStorage.setItem("tema", nuevoTema);
+            aplicarTema(nuevoTema);
+        }
+    </script>
+
+    <div id="chatbot-container" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        font-family: 'Verdana', sans-serif;
+    ">
+        <div id="chat-window" style="
+            display: none;
+            width: 320px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 2px solid #A28663;
+        ">
+            <div style="background: #4E342E; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span>Asistente Sky 🦦</span>
+                <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2rem;">×</button>
+            </div>
+            
+            <div style="padding: 15px; max-height: 450px; overflow-y: auto; color: #4E342E; background-color: #fff;">
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">¡Hola! Soy tu asistente. Selecciona una duda frecuente:</p>
+                
+                <select id="chat-selector" onchange="responder()" style="
+                    width: 100%;
+                    padding: 10px;
+                    border-radius: 10px;
+                    border: 1px solid #A28663;
+                    background: #F5F5DC;
+                    color: #4E342E;
+                    font-size: 0.85rem;
+                    cursor: pointer;
+                    margin-bottom: 15px;
+                ">
+                    <option value="">-- Elige una pregunta --</option>
+                    <option value="emergencia" style="color: #d9534f; font-weight: bold;">🚨 EMERGENCIAS (Signos de Alarma)</option>
+                    <option value="olor">¿Por qué huelen fuerte?</option>
+                    <option value="comida">¿Qué deben comer?</option>
+                    <option value="sueño">¿Duermen mucho?</option>
+                    <option value="arena">¿Usan caja de arena?</option>
+                    <option value="baile">¿Qué es el "baile de la guerra"?</option>
+                    <option value="vacunas">¿Necesitan vacunas?</option>
+                    <option value="casa">¿Pueden andar sueltos?</option>
+                    <option value="adopcion">¿Cómo adopto?</option>
+                </select>
+                
+                <div id="chat-response-box" style="
+                    background: #fdfaf3;
+                    padding: 12px;
+                    border-radius: 10px;
+                    border-left: 4px solid #A28663;
+                    display: none;
+                ">
+                    <div id="bot-answer" style="font-size: 0.85rem; line-height: 1.4; margin: 0;"></div>
+                </div>
+            </div>
+        </div>
+
+        <img src="Imagenes/botnutria.png" alt="Nutria Bot" style="
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid #A28663;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            object-fit: cover;
+            background: white;
+        " id="chat-toggle-btn" onclick="toggleChat()" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const chatResponseBox = document.getElementById('chat-response-box');
+        const botAnswer = document.getElementById('bot-answer');
+        const selector = document.getElementById('chat-selector');
+
+        function toggleChat() {
+            chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'block' : 'none';
+        }
+
+        function responder() {
+            const seleccion = selector.value;
+            if (seleccion === "") {
+                chatResponseBox.style.display = 'none';
+                return;
+            }
+
+            chatResponseBox.style.display = 'block';
+            let texto = "";
+
+            switch(seleccion) {
+                case 'emergencia':
+                    texto = "<b style='color: #d9534f;'>🚨 SIGNOS DE ALARMA:</b><br>" +
+                            "Lleva a tu hurón al veterinario de inmediato si notas:<br>" +
+                            "• <b>Letargo extremo:</b> No despierta o está muy débil.<br>" +
+                            "• <b>Hipoglucemia:</b> Salivación excesiva o manoteo en la boca.<br>" +
+                            "• <b>Diarrea constante:</b> Color verde oscuro o con sangre.<br>" +
+                            "• <b>Ayuno prolongado:</b> Si no come en más de 6 horas.<br>" +
+                            "• <b>Pérdida de pelo:</b> En la base de la cola o cuerpo.";
+                    break;
+                case 'olor':
+                    texto = "<b>Respuesta:</b> El olor es natural. Bañarlos seguido es un error porque producen más grasa.<br><b>Solución:</b> Limpieza de cobijas semanal y arena a diario.";
+                    break;
+                case 'comida':
+                    texto = "<b>Carnívoros estrictos:</b> Requieren 35-40% de proteína. Evita cereales y azúcar. Solo pueden comer alimento de gato si es 'Kitten Premium'.";
+                    break;
+                case 'sueño':
+                    texto = "¡Sí! Duermen entre 18 y 20 horas al día. Son crepusculares, pero adaptan su horario al tuyo para poder jugar.";
+                    break;
+                case 'arena':
+                    texto = "Sí, pero requieren paciencia. Coloca la caja en las esquinas que ya usan y utiliza refuerzo positivo con premios.";
+                    break;
+                case 'baile':
+                    texto = "Es pura felicidad. Saltan de lado con la espalda arqueada y hacen ruidos (dooking). ¡Significa que se están divirtiendo!";
+                    break;
+                case 'vacunas':
+                    texto = "¡Obligatorias! Contra Moquillo (mortal) y Rabia. Además, requieren revisiones anuales preventivas.";
+                    break;
+                case 'casa':
+                    texto = "Solo si está 'a prueba de hurones'. Revisa huecos tras el refrigerador, lavadoras y sillones. Si su cabeza pasa, el cuerpo también.";
+                    break;
+                case 'adopcion':
+                    texto = "Ve a la sección <b>'Adopta'</b> y llena el registro. Te contactaremos para una entrevista online. ¡Te esperamos!";
+                    break;
+            }
+            botAnswer.innerHTML = texto;
+        }
+    </script>
+</body>
+</html>

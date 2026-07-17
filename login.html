@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="menu-movil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugio Sky - Acceso Administrativo</title>
+    <style>
+        :root {
+            --fondo: #F5F5DC;
+            --texto-principal: #4E342E;
+            --tarjeta: #ffffff;
+            --acento: #A28663;
+        }
+
+        [data-theme="dark"] {
+            --fondo: #2C1E1B;
+            --texto-principal: #EDE0D4;
+            --tarjeta: #3D2B27;
+            --acento: #D7CCC8;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: all 0.4s ease;
+        }
+
+        .header-login { text-align: center; margin-bottom: 30px; }
+        .header-login h1 { font-family: 'Georgia', serif; font-style: italic; font-size: 2.5rem; margin: 0; }
+
+        .login-card {
+            background-color: var(--tarjeta);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            border-top: 5px solid var(--acento);
+        }
+
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; font-weight: bold; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(162, 134, 99, 0.3);
+            border-radius: 10px;
+            background-color: var(--fondo);
+            color: var(--texto-principal);
+            box-sizing: border-box;
+        }
+
+        .btn-ingresar {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--acento);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-ingresar:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .link-volver { margin-top: 20px; display: block; text-decoration: none; color: var(--texto-principal); font-size: 0.85rem; opacity: 0.7; }
+
+        .btn-toggle-login {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--tarjeta);
+            border: 1px solid var(--texto-principal);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            color: var(--texto-principal);
+        }
+            /* ... Todos tus estilos actuales que ya escribiste ... */
+
+    /* --- AL FINAL DE TODO, PEGAS ESTO --- */
+    @media (max-width: 768px) {
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px 0;
+            height: auto !important;
+        }
+        nav .enlaces, nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <button class="btn-toggle-login" onclick="cambiarModo()" id="modoBtn">🌙</button>
+
+    <div class="header-login">
+        <h1>Refugio Sky 🐾</h1>
+    </div>
+
+    <div class="login-card">
+        <h2>Panel Administrativo</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Usuario</label>
+                <input type="text" id="usuario" placeholder="Tu nombre completo" required>
+            </div>
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-ingresar">Ingresar al Sistema</button>
+        </form>
+        <a href="presentacion.html" class="link-volver">← Volver a la web principal</a>
+    </div>
+
+    <script>
+        // --- LÓGICA DE SEGURIDAD ---
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userIn = document.getElementById('usuario').value;
+            const passIn = document.getElementById('password').value;
+
+            // Validación de credenciales
+            if (userIn === "Veronica Herrera" && passIn === "huron07") {
+                window.location.href = "admin.html";
+            } else {
+                alert("❌ Acceso Denegado: Usuario o contraseña incorrectos.");
+            }
+        });
+
+        // --- MODO OSCURO ---
+        const body = document.body;
+        const btn = document.getElementById("modoBtn");
+
+        function aplicarTema(tema) {
+            if (tema === "dark") {
+                body.setAttribute("data-theme", "dark");
+                btn.innerHTML = "☀️";
+            } else {
+                body.removeAttribute("data-theme");
+                btn.innerHTML = "🌙";
+            }
+        }
+
+        const temaGuardado = localStorage.getItem("tema");
+        aplicarTema(temaGuardado);
+
+        function cambiarModo() {
+            const nuevoTema = body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            localStorage.setItem("tema", nuevoTema);
+            aplicarTema(nuevoTema);
+        }
+    </script>
+</body>
+</html>
